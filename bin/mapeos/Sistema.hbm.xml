@@ -6,7 +6,7 @@
 		</id>
 		
 		<property column="nombre" name="nombre" type="string"></property>
-		<set name="servicios" table="servicio" cascade="save-update" order-by="idServicio" inverse="true"
+		<set name="servicios" table="servicio" cascade="save-update, delete" order-by="idServicio" inverse="true"
 			lazy="true" fetch="select">
 			<key column="idSistema" not-null="true"></key>
 			<one-to-many class="datos.Servicio"></one-to-many>

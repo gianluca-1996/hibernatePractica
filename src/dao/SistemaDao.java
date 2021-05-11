@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -31,12 +32,13 @@ public class SistemaDao {
 		throw new HibernateException("ERROR en la capa de acceso a datos", he);
 	}
 	
-	public void agregar(Sistema sistema)
+	public int agregar(Sistema sistema)
 	{
+		int id;
 		try
 		{
 			iniciaOperacion();
-			session.save(sistema);
+			id = Integer.parseInt(session.save(sistema).toString());
 			tx.commit();
 		}	catch(HibernateException he) {
 				manejaExcepcion(he);
@@ -46,5 +48,57 @@ public class SistemaDao {
 			finally {
 				session.close();
 			}
+		return id;
+	}
+	
+	public Sistema traer(int idSistema)
+	{
+		Sistema sistema = null;
+		try
+		{
+			iniciaOperacion();
+			String hql = "from Sistema s where s.idSistema =" + idSistema;
+			sistema = (Sistema) session.createQuery(hql).uniqueResult();
+			if(sistema != null)
+				Hibernate.initialize(sistema.getServicios());
+		}finally
+		{
+			session.close();
+		}
+		
+		return sistema;
+	}
+	
+	public void eliminar(Sistema sistema)
+	{
+		try
+		{
+			iniciaOperacion();
+			session.delete(sistema);
+			tx.commit();
+		}catch(HibernateException he)
+		{
+			manejaExcepcion(he);
+			throw he;
+		}
+		finally
+		{
+			session.close();
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

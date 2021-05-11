@@ -15,8 +15,23 @@ public class SistemaABM {
 		return instance;
 	}
 	
-	public void agregar(Sistema sistema)
+	public int agregar(Sistema sistema)
 	{
-		SistemaDao.getInstance().agregar(sistema);
+		return SistemaDao.getInstance().agregar(sistema);
+	}
+	
+	public Sistema traer(int idSistema) throws Exception
+	{
+		Sistema sistema = SistemaDao.getInstance().traer(idSistema);
+		
+		if(sistema == null)
+			throw new Exception("ERROR - El sistema con ID " + idSistema + " no existe...");
+		
+		return sistema;
+	}
+	
+	public void eliminar(Sistema sistema)
+	{
+		SistemaDao.getInstance().eliminar(sistema);
 	}
 }

@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -33,12 +35,14 @@ public class ServicioDao {
 		throw new HibernateException("ERROR en la capa de acceso a datos", he);
 	}
 	
-	public void agregar(Servicio servicio)
+	public int agregar(Servicio servicio)
 	{
+		int id;
+		
 		try
 		{
 			iniciaOperacion();
-			session.save(servicio);
+			id = Integer.parseInt(session.save(servicio).toString());
 			tx.commit();
 		}	catch(HibernateException he) {
 				manejaExcepcion(he);
@@ -48,6 +52,7 @@ public class ServicioDao {
 			finally {
 				session.close();
 			}
+		return id;
 	}
 	
 	public Servicio traer(int idServicio)
@@ -70,6 +75,24 @@ public class ServicioDao {
 		return servicio;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Servicio> traer()
+	{
+		List<Servicio> lista = null;
+		
+		try
+		{
+			iniciaOperacion();
+			String hql = "from Servicio";
+			lista = session.createQuery(hql).list();
+		}finally
+		{
+			session.close();
+		}
+		
+		return lista;
+	}
+	
 	public void actualizar(Servicio servicio)
 	{
 		try
@@ -86,6 +109,26 @@ public class ServicioDao {
 		finally
 		{
 			session.close();
+		}
+	}
+	
+	public void eliminar(Servicio servicio)
+	{
+		try
+		{
+			iniciaOperacion();
+			session.delete(servicio);
+			tx.commit();
+		}catch(HibernateException he)
+		{
+			manejaExcepcion(he);
+			throw he;
+		}
+		
+		finally {
+			{
+				session.close();
+			}
 		}
 	}
 }

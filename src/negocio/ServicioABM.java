@@ -1,5 +1,8 @@
 package negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dao.ServicioDao;
 import datos.Servicio;
 
@@ -15,9 +18,9 @@ public class ServicioABM {
 		return instance;
 	}
 	
-	public void agregar(Servicio servicio)
+	public int agregar(Servicio servicio)
 	{
-		ServicioDao.getInstance().agregar(servicio);
+		return ServicioDao.getInstance().agregar(servicio);
 	}
 	
 	public Servicio traer(int idServicio) throws Exception
@@ -30,8 +33,27 @@ public class ServicioABM {
 		return servicio;
 	}
 	
+	public List<Servicio> traer(boolean enPromo)
+	{
+		List<Servicio> lista = ServicioDao.getInstance().traer();
+		List<Servicio> listaEnPromo = new ArrayList<Servicio>();
+		
+		for(Servicio s : lista)
+		{
+			if(s.isEnPromocion() == enPromo)
+				listaEnPromo.add(s);
+		}
+		
+		return listaEnPromo;
+	}
+	
 	public void actualizar(Servicio servicio)
 	{
 		ServicioDao.getInstance().actualizar(servicio);
+	}
+	
+	public void eliminar(Servicio servicio)
+	{
+		ServicioDao.getInstance().eliminar(servicio);
 	}
 }
