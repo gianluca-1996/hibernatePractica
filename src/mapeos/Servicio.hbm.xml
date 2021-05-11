@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+	<class name="datos.Servicio" table="servicio">
+		<id column="idServicio" name="idServicio">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property column="porcentajeDescuento" name="porcentajeDescuento" type="double"></property>
+		<property column="enPromocion" name="enPromocion" type="boolean"></property>
+		<many-to-one name="sistema" class="datos.Sistema"
+			column="idSistema" not-null="true">
+		</many-to-one>
+		
+		<joined-subclass name="datos.Gastronomia" table="gastronomia">
+			<key column="idGastronomia"></key>
+			<property column="precio" name="precio" type="double"></property>
+			<property column="diaSemDesc" name="diaSemDesc" type="int"></property>
+		</joined-subclass>
+		
+		<joined-subclass name="datos.Hospedaje" table="hospedaje">
+			<key column="idHospedaje"></key>
+			<property column="hospedaje" name="hospedaje" type="string"></property>
+			<property column="precioPorNoche" name="precioPorNoche" type="double"></property>
+		</joined-subclass>
+		
+	</class>
+</hibernate-mapping>

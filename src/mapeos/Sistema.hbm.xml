@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+	<class name="datos.Sistema" table="sistema">
+		<id column="idSistema" name="idSistema">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property column="nombre" name="nombre" type="string"></property>
+		<set name="servicios" table="servicio" cascade="save-update" order-by="idServicio" inverse="true"
+			lazy="true" fetch="select">
+			<key column="idSistema" not-null="true"></key>
+			<one-to-many class="datos.Servicio"></one-to-many>
+		</set>
+		
+	</class>
+</hibernate-mapping>
