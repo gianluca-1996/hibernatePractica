@@ -2,12 +2,15 @@ package datos;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Hospedaje extends Servicio{
 
 	private int idHospedaje;
 	private String hospedaje;
 	private double precioPorNoche;
+	private Set<Cliente> clientesHospedados;
 	
 	public Hospedaje() {}
 	
@@ -16,6 +19,7 @@ public class Hospedaje extends Servicio{
 		super(porcentajeDesc, enPromo, sistema);
 		setHospedaje(hospedaje);
 		setPrecioPorNoche(precioPorNoche);
+		setClientesHospedados(new LinkedHashSet<Cliente>());
 	}
 
 	public int getIdHospedaje() {
@@ -40,6 +44,14 @@ public class Hospedaje extends Servicio{
 
 	public void setPrecioPorNoche(double precioPorNoche) {
 		this.precioPorNoche = precioPorNoche;
+	}
+
+	public Set<Cliente> getClientesHospedados() {
+		return clientesHospedados;
+	}
+
+	public void setClientesHospedados(Set<Cliente> clientesHospedados) {
+		this.clientesHospedados = clientesHospedados;
 	}
 
 	@Override

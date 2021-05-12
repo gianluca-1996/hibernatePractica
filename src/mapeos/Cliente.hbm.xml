@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+	<class name="datos.Cliente" table="cliente">
+		<id column="idCliente" name="idCliente">
+			<generator class="identity"></generator>
+		</id>
+		
+		<property column="nombre" name="nombre" type="string"></property>
+		<property column="apellido" name="apellido" type="string"></property>
+		<property column="dni" name="dni" type="string"></property>
+		<set table="clientesHospedaje" name="hospedajes" outer-join="true">
+			<key column="idCliente"></key>
+			<many-to-many column="idHospedaje" class="datos.Hospedaje"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -47,6 +47,11 @@ public class ServicioABM {
 		return listaEnPromo;
 	}
 	
+	public List<Servicio> traer()
+	{
+		 return ServicioDao.getInstance().traer();
+	}
+	
 	public void actualizar(Servicio servicio)
 	{
 		ServicioDao.getInstance().actualizar(servicio);

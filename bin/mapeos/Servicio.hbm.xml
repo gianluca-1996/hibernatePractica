@@ -21,6 +21,10 @@
 			<key column="idHospedaje"></key>
 			<property column="hospedaje" name="hospedaje" type="string"></property>
 			<property column="precioPorNoche" name="precioPorNoche" type="double"></property>
+			<set table="clientesHospedaje" name="clientesHospedados" outer-join="true">
+				<key column="idHospedaje"></key>
+				<many-to-many column="idCliente" class="datos.Cliente"></many-to-many>
+			</set>
 		</joined-subclass>
 		
 	</class>

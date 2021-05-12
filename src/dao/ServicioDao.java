@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.Hospedaje;
 import datos.Servicio;
 
 public class ServicioDao {
@@ -66,7 +67,13 @@ public class ServicioDao {
 			servicio = (Servicio) session.createQuery(hql).uniqueResult();
 
 			if(servicio != null)
+			{
 				Hibernate.initialize(servicio.getSistema());
+				if(servicio instanceof Hospedaje)
+				{
+					Hibernate.initialize(((Hospedaje) servicio).getClientesHospedados());
+				}
+			}
 		}finally
 		{
 			session.clear();

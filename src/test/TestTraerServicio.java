@@ -3,6 +3,7 @@ package test;
 import java.time.LocalDate;
 import java.util.List;
 
+import datos.Cliente;
 import datos.Gastronomia;
 import datos.Hospedaje;
 import datos.Servicio;
@@ -14,26 +15,36 @@ public class TestTraerServicio {
 	public static void main(String[] args) {
 		
 		Sistema sistema = null;
+		Servicio servicio = null;
 		Servicio servicio1 = null;
 		Servicio servicio2 = null;
 		Hospedaje hospedaje = null;
 		Gastronomia gastronomia = null;
-		int idServicio = 3;
+		int idServicio = 2;
 		
 		try
 		{
 			//TRAER SERVICIOS EN PROMO
-			/*List<Servicio> listaEnPromo = ServicioABM.getInstance().traer(true);
-			for(Servicio s : listaEnPromo)
-				System.out.println(s + " " + s.isEnPromocion());*/
+			/*List<Servicio> lista = ServicioABM.getInstance().traer();
+			for(Servicio s : lista)
+			{
+				if(s instanceof Hospedaje)
+				{
+					hospedaje = (Hospedaje) s;
+					System.out.println(s);
+				}
+			}*/
 			
 			//TRAER SERVICIO POR ID
-			/*servicio = ServicioABM.getInstance().traer(idServicio);
+			servicio = ServicioABM.getInstance().traer(idServicio);
 			
 			if(servicio instanceof Hospedaje)
 			{
 				hospedaje = (Hospedaje) servicio;
-				System.out.println(hospedaje + " " + hospedaje.getSistema());
+				System.out.println(hospedaje);
+				
+				for(Cliente cliente : hospedaje.getClientesHospedados())
+					System.out.println(cliente);
 			}
 			
 			else
@@ -43,7 +54,7 @@ public class TestTraerServicio {
 					gastronomia = (Gastronomia) servicio;
 					System.out.println(gastronomia + " " + gastronomia.getSistema());
 				}
-			}*/
+			}
 			
 			
 			//ACTUALIZAR SERVICIO

@@ -32,3 +32,18 @@ create table hospedaje(
     foreign key (idHospedaje) references servicio(idServicio)
 );
 
+create table cliente(
+	idCliente int(11) not null auto_increment,
+    nombre varchar(20) not null,
+    apellido varchar(20) not null,
+    dni varchar(20) not null,
+    primary key (idCliente)
+);
+
+create table clientesHospedaje(
+	idCliente int(11) not null,
+    idHospedaje int(11) not null,
+    primary key (idCliente, idHospedaje),
+    foreign key (idCliente) references cliente(idCliente),
+    foreign key (idHospedaje) references hospedaje(idHospedaje)
+);
